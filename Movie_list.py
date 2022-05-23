@@ -20,7 +20,12 @@ print(data)
 
 def main():
     user_movie_list = []
-    user_movie_name = input("Enter the name of the movie: ")
+    #kalva.5: error will determine when a wrong movie is chosen and there is already more than one 
+    #movie in the list
+    error = False
+    while(len(user_movie_list)==0 or error):
+        user_movie_name = input("Enter the name of the movie: ")
+
 
 if __name__ == "__main__":
     main()
