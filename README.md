@@ -4,11 +4,6 @@
     - Ask the user for the name of the first movie and check if it's validity(Need at least one valid movie)
     - Continue asking for more movies if the client chooses to share
 
-    #TODO - Figure out how to warn the client of an unvalid input.
-        - How to stop asking for movies
-        - Send the user_movie_list to the algorithm
-        - Clean up and comment
-
 
 2. Use Cosine Similarity
     - Compare the movies chosen by the client and the movies from the database and find the cosine similarity.

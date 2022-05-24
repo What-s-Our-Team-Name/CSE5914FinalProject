@@ -34,14 +34,14 @@ def selectMovie(data_results):
     return data_results[x]
 
 
-def main():
-    user_movie_list = []
-    #kalva.5: error will determine when a wrong movie is chosen and there is already more than one 
-    #movie in the list
-    while(len(user_movie_list)==0):
+
+def getMovieList():
+    temp = []
+   
+    while(True):
         user_movie_name = input("Enter the name of the movie: ")
         if(not user_movie_name):
-            print("error: Needs a valid name")
+            break
         else:
             URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
             PARAMS = {'title':user_movie_name}
@@ -49,8 +49,22 @@ def main():
             data = r.json()
 
             if(len(data['results'])>0):
-                user_movie_list.append(selectMovie(data['results']))
+                movie = selectMovie(data['results'])
+                if(movie not in temp):
+                    temp.append(movie)
+            else:
+                print("Input a valid movie name!")
+    
+    return temp
 
+
+
+
+def main():
+
+    user_movie_list = getMovieList()
+    #kalva.5: error will determine when a wrong movie is chosen and there is already more than one 
+    #movie in the list
     print(user_movie_list)
 
 
