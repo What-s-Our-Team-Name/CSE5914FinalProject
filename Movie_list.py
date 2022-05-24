@@ -1,23 +1,13 @@
-from bs4 import ResultSet
+#from bs4 import ResultSet
 import requests
-from sqlalchemy import null
-
-#print("Please Enter the movie names: ")
-
-#title = input("Movie name: ")
-
-#URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+title
-
-#PARAMS = {'title':title}
-
-#r = requests.get(url = URL, params = PARAMS)
-
-#data = r.json()
-
-#print(data)
 
 def inputSelectedMovie(data_results):
-    return int(input("Enter the selected movie(0-{}):".format(len(data_results)-1)))
+    x = input("Enter the selected movie(0-{}):".format(len(data_results)-1))
+    if (x.isdigit):
+        return int(x)
+    else:
+        return False
+
 
 
 def displaySelectedMovies(data_results):
@@ -27,6 +17,7 @@ def displaySelectedMovies(data_results):
 def selectMovie(data_results):
     displaySelectedMovies(data_results)
     x = inputSelectedMovie(data_results)
+    print(x)
     if(x<0 or x>=len(data_results)):
         print("Please enter valid movie")
         displaySelectedMovies(data_results)
