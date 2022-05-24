@@ -1,5 +1,6 @@
 from bs4 import ResultSet
 import requests
+from sqlalchemy import null
 
 #print("Please Enter the movie names: ")
 
@@ -37,15 +38,18 @@ def main():
     user_movie_list = []
     #kalva.5: error will determine when a wrong movie is chosen and there is already more than one 
     #movie in the list
-    error = False
-    while(len(user_movie_list)==0 or error):
+    while(len(user_movie_list)==0):
         user_movie_name = input("Enter the name of the movie: ")
-        URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
-        PARAMS = {'title':user_movie_name}
-        r = requests.get(url = URL, params = PARAMS)
-        data = r.json()
-        if(len(data['results'])>0):
-            user_movie_list.append(selectMovie(data['results']))
+        if(not user_movie_name):
+            print("error: Needs a valid name")
+        else:
+            URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
+            PARAMS = {'title':user_movie_name}
+            r = requests.get(url = URL, params = PARAMS)
+            data = r.json()
+
+            if(len(data['results'])>0):
+                user_movie_list.append(selectMovie(data['results']))
 
     print(user_movie_list)
 
