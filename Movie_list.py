@@ -15,15 +15,22 @@ import requests
 
 #print(data)
 
+def inputSelectedMovie(data_results):
+    return int(input("Enter the selected movie(0-{}):".format(len(data_results)-1)))
+
 
 def displaySelectedMovies(data_results):
     for i in range(len(data_results)):
         print('{}. {}'.format(i, data_results[i]['title']))
-    print
 
 def selectMovie(data_results):
-    print()
-
+    displaySelectedMovies(data_results)
+    x = inputSelectedMovie(data_results)
+    if(x<0 or x>=len(data_results)):
+        print("Please enter valid movie")
+        displaySelectedMovies(data_results)
+        x = inputSelectedMovie(data_results)
+    return data_results[x]
 
 
 def main():
@@ -38,7 +45,9 @@ def main():
         r = requests.get(url = URL, params = PARAMS)
         data = r.json()
         if(len(data['results'])>0):
-            selectMovie()
+            user_movie_list.append(selectMovie(data['results']))
+
+    print(user_movie_list)
 
 
 
