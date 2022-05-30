@@ -1,6 +1,17 @@
 #from bs4 import ResultSet
+#@author: What is our team name?
+
+#imports
 import requests
 
+"""
+DESCRIPTION 
+    - Have the user input numerically what movie they are interested in
+@parameters
+    data_results - the api list of the movies that closely relate to what the user searched up
+@return
+    - the number index of the movie that they had selected
+"""
 def inputSelectedMovie(data_results):
     x = input("Enter the selected movie(0-{}):".format(len(data_results)-1))
     if (x.isdigit):
@@ -9,11 +20,25 @@ def inputSelectedMovie(data_results):
         return False
 
 
-
+"""
+DESCRIPTION 
+    - Display the movies that closest match to what the user searched
+@parameters
+    data_results - the api list of the movies that closely relate to what the user searched up
+"""
 def displaySelectedMovies(data_results):
     for i in range(len(data_results)):
         print('{}. {}'.format(i, data_results[i]['title']))
 
+
+"""
+DESCRIPTION 
+    - Given a series of movies the user must select from the list
+@parameters
+    data_results - the api list of the movies that closely relate to what the user searched up
+@return
+    - the movie dictionary that the user selected
+"""
 def selectMovie(data_results):
     displaySelectedMovies(data_results)
     x = inputSelectedMovie(data_results)
@@ -25,7 +50,13 @@ def selectMovie(data_results):
     return data_results[x]
 
 
-
+"""
+DESCRIPTION 
+    - Have the user input movies and add to the list if they are valid
+@parameters
+@return
+    - returns a list of dictionaries from the imdb api of the movies that the user is interested in
+"""
 def getMovieList():
     temp = []
    
@@ -48,9 +79,7 @@ def getMovieList():
     
     return temp
 
-
-
-
+#main function of the getting the user movie list
 def main():
 
     user_movie_list = getMovieList()
