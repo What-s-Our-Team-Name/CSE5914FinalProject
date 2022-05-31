@@ -1,6 +1,23 @@
 import requests
 
-user_movie_name = input("Enter the name of the movie: ")
-URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
+import csv
 
+URL = "https://imdb-api.com/en/API/Top250Movies/k_z9p2w7dy"
+r = requests.get(url = URL)
+data = r.json()
+ids = []
+i = 0
+row = []
+col = [""]
+for titleID in range(len(data['items'])):
+    #ids[i] = data['items'][titleID]['id']
+    col.append(data['items'][titleID]['id'])
+    row.append([data['items'][titleID]['id']])
+    i += 1
+print(col)
+print(row)
 
+with open('data.csv','w') as f:
+    write = csv.writer(f)
+    write.writerow(col)
+    write.writerows(row)
