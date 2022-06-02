@@ -25,9 +25,14 @@ with open('test_data.csv', 'w') as f:
             print(movie.find('span', class_='genre').get_text())
         if movie.find('p', class_=''):
             s = movie.find('p', class_='').get_text()
-            director = re.search('    Director:\n(.*?)\n|', s)
-            print(s)
-            print(director.group(1))
+            start = s.find('    Director:') + len('    Director:')
+            end = s.find('|')
+            director = s[start:end].strip()
+            start = s.find('    Stars:') + len('    Stars:')
+            end = s.find('|')
+            stars = s[start:].strip()
+            print(director)
+            print(stars)
         print('--------------------------------------------------------------------------------')
 
     # search_url = soup.find('a', class_="lister-page-next next-page").get('href')
