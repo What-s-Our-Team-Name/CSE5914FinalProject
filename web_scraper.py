@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import re
+from random import random
+import time
 
 def scrape_page():
     for movie in soup.findAll('div', class_='lister-item-content'):
@@ -37,6 +39,10 @@ with open('test_data.csv', 'w') as f:
         search_url = soup.find('a', class_='lister-page-next next-page').attrs['href']
         response = requests.get(root+search_url)
         soup = BeautifulSoup(response.text, "html.parser")
+
+
+def randomSleep():
+    time.sleep(random())
 
     # search_url = soup.find('a', class_="lister-page-next next-page").get('href')
     # response = requests.get(root+search_url)
