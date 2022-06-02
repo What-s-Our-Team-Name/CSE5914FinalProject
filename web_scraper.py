@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import re
+from random import random
+import time
 
 root = 'https://www.imdb.com'
 search_url = '/search/title/?title_type=feature&sort=alpha,asc'
@@ -34,6 +36,10 @@ with open('test_data.csv', 'w') as f:
             print(director)
             print(stars)
         print('--------------------------------------------------------------------------------')
+
+
+def randomSleep():
+    time.sleep(random())
 
     # search_url = soup.find('a', class_="lister-page-next next-page").get('href')
     # response = requests.get(root+search_url)
