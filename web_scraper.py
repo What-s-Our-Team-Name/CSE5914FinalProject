@@ -1,9 +1,26 @@
+from ctypes import cast
+from sre_parse import State
 from bs4 import BeautifulSoup
 import requests
 import csv
 import re
 from random import random
 import time
+
+
+def splitArray(cast_list):
+    director_list = []
+    star_list = []
+    state_change = False
+    for i in range(len(cast_list)):
+        if(cast_list[i]=="|"):
+            state_change = True
+        else:
+            if not state_change:
+                director_list.append(cast_list[i])
+            else:
+                star_list.append(cast_list[i])
+    director_list,star_list
 
 
 def randomSleep():
