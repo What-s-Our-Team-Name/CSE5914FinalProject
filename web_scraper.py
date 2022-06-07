@@ -25,16 +25,17 @@ def scrape_page(writer):
             genres = movie.find('span', class_='genre').get_text()
         if movie.find('p', class_=''):
             s = movie.find('p', class_='').get_text()
-            print(s)
-            str_list = s.split()
-            print(str_list)
-            # start = s.find('Director:') + len('Director:')
-            # end = s.find('|')
-            # director = s[start:end].strip()
-            # start = s.find('Stars:') + len('Stars:')
-            # end = s.find('|')
-            # stars = s[start:].strip()
-        writer.writerow((title_id, title, year, runtime, genres, director, stars))       
+            dir_and_cast(s)
+            str_list = s.split('\n')
+            mod_str_list = []
+            for string in str_list:
+                mod_str = string.strip()
+                if mod_str != '':
+                    mod_str_list.append(mod_str)
+            mod_str_list
+            #director = getDirector(mod_str_list)
+            #stars = getStars(mod_str_list)
+        #writer.writerow((title_id, title, year, runtime, genres, director, stars))       
 
 with open('movie_data.csv', 'w') as f:
     writer = csv.writer(f)
