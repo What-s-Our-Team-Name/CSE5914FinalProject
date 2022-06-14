@@ -65,10 +65,11 @@ def getMovieList():
         if(not user_movie_name):
             break
         else:
-            URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
-            PARAMS = {'title':user_movie_name}
+            URL = "https://imdb-api.com/API/AdvancedSearch/k_z9p2w7dy"
+            PARAMS = {'title':user_movie_name, 'title_type':'feature', 'release_date':',2021-01-01', 'languages':'en'}
             r = requests.get(url = URL, params = PARAMS)
             data = r.json()
+            print(data)
 
             if(len(data['results'])>0):
                 movie = selectMovie(data['results'])

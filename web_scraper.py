@@ -1,11 +1,13 @@
 from ctypes import cast
 from sre_parse import State
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import requests
 import csv
 import re
 from random import random
 import time
+
+from sqlalchemy import desc
 
 
 def splitArray(cast_list):
@@ -36,6 +38,8 @@ def scrape_page(writer):
         dir_list = None
         cast_list = None
         rating = None
+        description = ''
+
         if movie.find(href=re.compile('title')):
             s = str(movie.find(href=re.compile('title')))
             ss1 = 'tt'
@@ -60,14 +64,26 @@ def scrape_page(writer):
         if movie.find('div', class_='inline-block ratings-imdb-rating'):
             s = movie.find('div', class_='inline-block ratings-imdb-rating').attrs
             rating = s['data-value']
+        if movie.findAll('p', class_='text-muted'):
+            p_tags = movie.findAll('p', class_='text-muted')
+            if len(p_tags) >= 2:
+                description_unclean = p_tags[1].contents
+                description_unclean[0] = description_unclean[0][1:]
+                for text in description_unclean:
+                    if type(text) != Tag:
+                        description += text
+                    else:
+                        for child in text.descendants:
+                            if type(child) == str:
+                                description += child
 
-        writer.writerow((title_id, title, year, runtime, genres, dir_list, cast_list, rating))       
+        writer.writerow((title_id, title, year, runtime, genres, dir_list, cast_list, rating, description))       
 
-with open('movie_data.csv', 'w') as f:
+with open('movie_data_pop.csv', 'w') as f:
     writer = csv.writer(f)
     writer.writerow(('title_id', 'title', 'year', 'runtime', 'genres', 'dir_list', 'cast_list', 'rating'))
     root = 'https://www.imdb.com'
-    search_url = '/search/title/?title_type=feature&release_date=,2021-12-31&languages=en&sort=alpha,asc'
+    search_url = '/search/title/?title_type=feature&release_date=,2021-12-31&languages=en'
     response = requests.get(root+search_url)
     soup = BeautifulSoup(response.text, "html.parser")
     i = 1
