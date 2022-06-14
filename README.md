@@ -16,3 +16,11 @@
 3. Create the Final List of 20 movies
     - From the list of 20 for each of movies find the most similar 20 and return that to the command line.
 
+4. Connecting the RASA chatbot to the python files:
+    - chatbot must ask for a movie.
+    - make sure that the chatbot chooses the correct movie
+    - have the chatbot ask for multiple movies if needed
+    - have the chatbot use the cosine similarity to recommend movies
+    - display the movies
+    - (optional) user can select the movie and see where they can watch the movie
+
