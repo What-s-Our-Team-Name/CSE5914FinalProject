@@ -25,10 +25,15 @@ DESCRIPTION
     - Display the movies that closest match to what the user searched
 @parameters
     data_results - the api list of the movies that closely relate to what the user searched up
+        - offers the attributes: title, year, and plot of the movie
+        - year = description
+
 """
 def displaySelectedMovies(data_results):
     for i in range(len(data_results)):
-        print('{}. {}'.format(i, data_results[i]['title']))
+        print('{}. {} {}:'.format(i, data_results[i]['title'], data_results[i]['description']))
+        print(data_results[i]['plot'])
+        print()
 
 
 """
@@ -65,8 +70,8 @@ def getMovieList():
         if(not user_movie_name):
             break
         else:
-            URL = "https://imdb-api.com/en/API/Search/k_z9p2w7dy/"+user_movie_name
-            PARAMS = {'title':user_movie_name}
+            URL = "https://imdb-api.com/en/API/AdvancedSearch/k_z9p2w7dy"
+            PARAMS = {'title':user_movie_name, 'title_type':'feature', 'release_date':',2021-01-01', 'languages':'en'} 
             r = requests.get(url = URL, params = PARAMS)
             data = r.json()
 
