@@ -21,8 +21,18 @@ intents:
     use_entities: true
 - ask_movies:
     use_entities: true
-entities: []
-slots: {}
+- where_i_live:
+    use_entities: true
+- inquire_time_difference:
+    use_entities: true
+- inquire_time:
+    use_entities: true
+entities:
+- place
+slots:
+  location:
+    type: text
+    influence_conversation: true
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -39,5 +49,11 @@ responses:
   - text: I am a bot, powered by Rasa.
 actions:
 - recommend_movies
+- action_remember_where
+- action_tell_time
+- action_time_difference
+- utter_greet
 forms: {}
 e2e_actions: []
+
+
