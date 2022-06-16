@@ -74,7 +74,7 @@ def getMovieList():
             PARAMS = {'title':user_movie_name, 'title_type':'feature', 'release_date':',2021-01-01', 'languages':'en'} 
             r = requests.get(url = URL, params = PARAMS)
             data = r.json()
-            print(data)
+            # print(data)
 
             if(len(data['results'])>0):
                 movie = selectMovie(data['results'])

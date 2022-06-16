@@ -24,3 +24,4 @@
     - display the movies
     - (optional) user can select the movie and see where they can watch the movie
 
+5. Fix AccurateSearch

@@ -88,10 +88,15 @@ with open('movie_data_pop.csv', 'w') as f:
     soup = BeautifulSoup(response.text, "html.parser")
     i = 1
     while soup.find('a', class_='lister-page-next next-page'):
-        scrape_page(writer)
-        randomSleep() 
-        search_url = soup.find('a', class_='lister-page-next next-page').attrs['href']
-        response = requests.get(root+search_url)
-        soup = BeautifulSoup(response.text, "html.parser")
-        print('Page ' + str(i) + ' has been scraped')
-        i += 1
+        try:
+            scrape_page(writer)
+            randomSleep() 
+            search_url = soup.find('a', class_='lister-page-next next-page').attrs['href']
+            response = requests.get(root+search_url)
+            soup = BeautifulSoup(response.text, "html.parser")
+            print('Page ' + str(i) + ' has been scraped')
+            i += 1
+        except:
+            print(search_url)
+            print(response)
+    print("Scraping complete")
