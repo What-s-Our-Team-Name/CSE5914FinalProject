@@ -1,9 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
+import os
+
+PEOPLE_FOLDER = os.path.join('static', 'movie_posters')
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = PEOPLE_FOLDER
 
 @app.route('/')
-def home():
-    return 'Hello, World!'
-
+@app.route('/index')
+def show_index():
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'movie_template.jpeg')
+    return render_template("index.html", user_image = full_filename)
 app.run()
