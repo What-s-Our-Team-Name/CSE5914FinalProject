@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="english">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +11,76 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css>"/>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <!--Link to our stylesheet-->
+        <link rel="stylesheet" href="style.css">
+        <!--Link to Google API fonts-->
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        
+        <script src="https://kit.fontawesome.com/87a6375bdf.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <img src="/static/images/IMDB.jpg">
+        <header>
+            
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <!--This is the catergories for each part-->
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav_link">Home</a></li>
+                    <li class="nav__item"><a href="#services" class="nav_link">Services</a></li>
+                    <li class="nav__item"><a href="#product" class="nav_link">About Me</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav_link">Projects</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="intro" id="Home">
+            <h1 class="section__title section__title--intro">
+                <strong>Movie </strong> <strong> Recommendation </strong> System
+            </h1>
+            <p class="section__subtitle section__subtitle--intro">WHAT IS OUR TEAM NAME?</p>
+            <img src="static/images/movie_background.png" class="intro__img">
+        </section>
+        <section class="Services" id="services">
+            <h1 class="section__title section__title--intro">
+                <strong>Services</strong>
+            </h1>
+
+        </section>
+        <section class="product" id="product">
+            <h1 class="section__title section__title--intro">
+                <strong>Product</strong>
+            </h1>
+        </section>
+        <section class="myProjects" id="projects">
+            <h1 class="section__title section__title--intro">
+                <strong>Projects</strong>
+            </h1>
+        </section>
+
+          <!--FOOTER-->
+          <footer class="footer">
+            <a href="mailto:surgekalva7@gmail.com" class="footer__link">surgekalva7@gmail.com</a>
+            <ul class="social-list">
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://github.com/surgekalva7">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://www.instagram.com/srujankalva7/"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://www.linkedin.com/in/srujan-kalva-9b872b1b5/"><i class="fab fa-linkedin"></i></a>
+                </li>
+            </ul>
+        </footer>
         <script src="" async defer></script>
     </body>
 </html>
