@@ -1,6 +1,6 @@
 # CSE5914FinalProject
 
-1. Get a list from the client
+1. (COMPLETE) Get a list from the client
     - Ask the user for the name of the first movie and check if it's validity(Need at least one valid movie)
     - Continue asking for more movies if the client chooses to share
 
@@ -24,4 +24,14 @@
     - display the movies
     - (optional) user can select the movie and see where they can watch the movie
 
-5. Fix AccurateSearch
+5. FIXME Fix AccurateSearch
+
+6. TODO Web App:
+    index.html:
+        - Navigational Panel
+        - Services
+        - Product
+        - Advanced Stats
+        - Footer
+    index.css:
+        - Clean up the stylesheet and make sure the page looks as good as possible at the end.
