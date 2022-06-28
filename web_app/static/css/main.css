@@ -22,7 +22,7 @@
 
     --clr-light: #FFF;
     --clr-dark: #244250;
-    --clr-accent: #43dfca;
+    --clr-accent: #3ecad4;
 
     --fs-h1: 3rem;
     --fs-h2: 2.25rem;
@@ -483,3 +483,6 @@ nav{
   background-position: 100% center;
 
 }
+
+
+
