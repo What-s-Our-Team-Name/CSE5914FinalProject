@@ -12,11 +12,13 @@ function App() {
   return (
     <div className="App">
       <div style={{ maxWidth: "300px" }}>
-        <Chatbot
-          config={config}
-          actionProvider={ActionProvider}
-          messageParser={MessageParser}
-        />
+        <div className="Test">
+          <Chatbot
+            config={config}
+            actionProvider={ActionProvider}
+            messageParser={MessageParser}
+          />
+        </div>
       </div>
     </div>
   );
