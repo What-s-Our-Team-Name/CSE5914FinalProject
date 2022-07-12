@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="english">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Movie Recommendation Chatbot</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css>"/>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <!--Link to our stylesheet-->
+        <link rel="stylesheet" href="style.css">
+        <!--Link to Google API fonts-->
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        
+        <script src="https://kit.fontawesome.com/87a6375bdf.js" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <header>
+            <!--
+            #FIXME: NAVIGATIONAL PANEL
+                1. Get the javascript navigation toggle to start working.
+                2. Make sure that the titles are accurate and up to date.
+            
+            -->
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <!--This is the catergories for each part-->
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav_link">Home</a></li>
+                    <li class="nav__item"><a href="#services" class="nav_link">Services</a></li>
+                    <li class="nav__item"><a href="#product" class="nav_link">About Me</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav_link">Projects</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="intro" id="Home">
+            <h1 class="section__title section__title--intro">
+                <strong>Movie </strong> <strong> Recommendation </strong> System
+            </h1>
+            <p class="section__subtitle section__subtitle--intro">WHAT IS OUR TEAM NAME?</p>
+            <img src="static/images/movie_background.png" class="intro__img">
+        </section>
+
+        <!--
+        #TODO:  SERVICES
+            1. Introduction on why the application is needed.
+            2. Clear introduction to how the application works.
+            3. Explain the features and algoritms used to make the system.
+        -->
+        <section class="Services" id="services">
+
+                <div class="split">
+                    <div class="centered">
+                      <h3>What is the problem?</h3>
+                      <p>There's nothing more frustrating to someone than having free time but not knowing what to watch or just being tired of
+                          rewatching the same movie over again and again. So, in order to lower your stress, our movie recommendation service will
+                          recommend the perfect movies that you would have never thought of so you can sit back and relax.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div class="split">
+                    <div class="centered">
+                      <h3>How does it work?</h3>
+                      <p>In order to get the most accurate understanding of what movies that you might be interested in, we decided that it was best
+                          to allow the user to only select the movies that they strongly remember or like rather than all the movies they have seen.
+                          By doing this we can both limit the number of entries that goes into the system and offer a more accurate result to the user.
+                          After collecting a series of movies that the user has already seen, this data is sent to the system where it extracts the attributes
+                          of the movies, namely: title name, genre, cast, and the plot. Using this it compares the attributes of the movies selected by the user
+                          to the movies in our database of over 100,000 movies using cosine similarity and selects the top 8 movies to recommend to the user.
+                      </p>
+                    </div>
+                  </div>
+
+        </section>
+
+        <!--
+        #TODO:  PRODUCT
+            1. Connect the search tab to the chatbot.
+                a. This needs to be done in such a way that we can recieve the output of the chatbot, along with the
+                    user inputs.
+            2. Find a way for the web page to display at most 8 movies at a time.
+                a. The display of a movie can either by the poster of the movie or just use the description of the movie
+                    that we already have.
+            3. Make sure that we get an accurate result for each search of movies, meaning that we get the same results
+                from the Movie_list.py and that the web page updates properly.
+            4. Create a feature that allows you to select a movie.
+                a. Store the names of the title_id of the movies selected in a list. - This will be the input for the movie
+                    recommendation system.
+                b. (Optional) - Find a feature that allows us to remove movie names.
+            5. End the option of selecting more movies by letting the chatbot know that you are done.
+            6. Have the chatbot complete the movie recommendation system and output the result on the page with exactly
+                the top 8 movies.
+            7. (Optional) - Where you might be able to find the movies that you are interested in.
+        -->
+        <section class="product" id="product">
+
+                <div class="search__container">
+                    <p class="search__title">
+                        Go ahead, hover over search
+                    </p>
+                    <input class="search__input" type="text" placeholder="Search">
+                </div>
+
+        </section>
+
+        <!--
+        #TODO(Optional): ADVANCED STATS
+            1. Store the advanced stats that someone might be interested in.
+        -->
+        <section class="myProjects" id="projects">
+            <h1 class="section__title section__title--intro">
+                <strong>Projects</strong>
+            </h1>
+        </section>
+
+        <!--
+        #FIXME:    FOOTER
+            1. Change the site to show two things:
+                a. Github - make open source.
+                b. Mail - If they want to contact the team.
+        -->
+          <footer class="footer">
+            <a href="mailto:surgekalva7@gmail.com" class="footer__link">surgekalva7@gmail.com</a>
+            <ul class="social-list">
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://github.com/What-s-Our-Team-Name/CSE5914FinalProject">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://www.instagram.com/srujankalva7/"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="social-list-item">
+                    <a class="social-list__link" href="https://www.linkedin.com/in/srujan-kalva-9b872b1b5/"><i class="fab fa-linkedin"></i></a>
+                </li>
+            </ul>
+        </footer>
+        <script src="index.js"></script>
+    </body>
+</html>
