@@ -5,3 +5,5 @@ flask
 wheel
 uwsgi
 requests
+pandas
+numpy
