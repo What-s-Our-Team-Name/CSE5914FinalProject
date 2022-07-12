@@ -1,0 +1,7 @@
+beautifulsoup4
+browsercookie
+Flask
+flask
+wheel
+uwsgi
+requests
