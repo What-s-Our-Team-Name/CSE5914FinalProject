@@ -1,9 +1,16 @@
 # CSE5914FinalProject
 
-# Get Started
+# Get Started (⚠️ Note the steps should be performed on Ubuntu Server)
 ## To install environment
 - `cd /root/CSE5914FinalProject`
 - `. setup.sh`
+
+## To deploy backend server
+- `cd /root/CSE-Final-Proj/server`
+- `. deploy.sh`
+
+## After deployment, the web app should be accessible on `xxx:8080`, i.e., http://164.92.78.243:8080/
+
 
 # Description
 1. (COMPLETE) Get a list from the client
