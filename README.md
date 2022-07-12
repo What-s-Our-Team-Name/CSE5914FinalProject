@@ -1,6 +1,19 @@
 # CSE5914FinalProject
 
-1. Get a list from the client
+# Get Started (⚠️ Note the steps should be performed on Ubuntu Server)
+## To install environment
+- `cd /root/CSE5914FinalProject`
+- `. setup.sh`
+
+## To deploy backend server
+- `cd /root/CSE-Final-Proj/server`
+- `. deploy.sh`
+
+## After deployment, the web app should be accessible on `xxx:8080`, i.e., http://164.92.78.243:8080/
+
+
+# Description
+1. (COMPLETE) Get a list from the client
     - Ask the user for the name of the first movie and check if it's validity(Need at least one valid movie)
     - Continue asking for more movies if the client chooses to share
 
@@ -24,3 +37,14 @@
     - display the movies
     - (optional) user can select the movie and see where they can watch the movie
 
+5. FIXME Fix AccurateSearch
+
+6. TODO Web App:
+    index.html:
+        - Navigational Panel
+        - Services
+        - Product
+        - Advanced Stats
+        - Footer
+    index.css:
+        - Clean up the stylesheet and make sure the page looks as good as possible at the end.
