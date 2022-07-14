@@ -7,7 +7,7 @@ import requests
 
 app = Flask(__name__)
 
-user_movie_list = ["tt0317219"]
+user_movie_list = []
 
 @app.route("/add_movie", methods=["POST"])
 def add_movie_to_list():
