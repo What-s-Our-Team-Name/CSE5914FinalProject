@@ -1,3 +1,5 @@
+# Note: front end request must contain user_movie as a parameter
+
 from flask import Flask
 from flask import request
 import requests
