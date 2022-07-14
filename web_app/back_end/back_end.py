@@ -9,7 +9,12 @@ app = Flask(__name__)
 
 user_movie_list = ["tt0317219"]
 
-@app.route("/imdb", methods="GET")
+@app.route("/add_movie", methods=["POST"])
+def add_movie_to_list():
+    movie = request.form['selected_movie']
+    user_movie_list.append(movie)
+
+@app.route("/imdb", methods=["GET"])
 def get_imdb_results():
     movie = request.args.get('user_movie', '')
     URL = "https://imdb-api.com/en/API/AdvancedSearch/k_z9p2w7dy"
@@ -18,7 +23,7 @@ def get_imdb_results():
     data = r.json()
     return data
 
-@app.route("/database")
+@app.route("/database", methods=["GET"])
 def get_database_results():
     rec_movies = name_recommendations.getRecommendations(user_movie_list)
     return rec_movies
