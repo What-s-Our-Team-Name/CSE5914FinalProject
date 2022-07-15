@@ -1,11 +1,11 @@
 [Unit]
-Description=Chatbot Server
+Description=Chatbot Backend Server
 After=network.target
 
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/root/CSE5914FinalProject/web_app/server
+WorkingDirectory=/root/CSE5914FinalProject/web_app/back_end
 Environment="PATH=/root/CSE5914FinalProject/venv/bin"
 ExecStart=/root/CSE5914FinalProject/venv/bin/uwsgi --ini chatbot.ini
 

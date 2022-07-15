@@ -1,6 +1,10 @@
 # Note: front end request must contain user_movie as a parameter
 
-from flask import Flask
+from flask import (
+    Flask,
+    render_template,
+    request,
+)
 from flask import request
 import name_recommendations
 import requests
@@ -28,4 +32,8 @@ def get_database_results():
     rec_movies = name_recommendations.getRecommendations(user_movie_list)
     return rec_movies
 
-app.run(debug=True, use_debugger=False, use_reloader=False)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+app.run(host='0.0.0.0', port=8080, debug=True, use_debugger=False, use_reloader=False)
