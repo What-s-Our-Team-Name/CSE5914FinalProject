@@ -6,10 +6,12 @@ from flask import (
     request,
 )
 from flask import request
+from flask_cors import CORS
 import name_recommendations
 import requests
 
 app = Flask(__name__)
+cors = CORS(app)
 
 user_movie_list = []
 
@@ -35,5 +37,6 @@ def get_database_results():
 @app.route('/')
 def home():
     return render_template('index.html')
+
 
 app.run(host='0.0.0.0', port=8080, debug=True, use_debugger=False, use_reloader=False)

@@ -2,6 +2,7 @@ beautifulsoup4
 browsercookie
 Flask
 flask
+flask-cors
 wheel
 uwsgi
 requests
