@@ -15,7 +15,7 @@ DESCRIPTION
 @return
     - the top 15 movies that can be recommended given the user's choice
 """
-def getRecommendations(user_movie_ids):
+def get_recommendations(user_movie_ids):
     #user_movie_list,idss = ml.getMovieList()
     result = {}
     for user_movie_id in user_movie_ids:
@@ -36,5 +36,8 @@ def getRecommendations(user_movie_ids):
         movie_dict[i] = top15_movies[i]
 
     return movie_dict
+
+def is_valid_movie_id(movie_id):
+    return movie_id in titleids['title_id'].to_numpy()
 
 
