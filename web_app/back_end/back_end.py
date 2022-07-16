@@ -2,36 +2,78 @@
 
 from flask import (
     Flask,
+    abort,
+    jsonify,
     render_template,
     request,
 )
 from flask import request
 from flask_cors import CORS
-import name_recommendations
+from name_recommendations import (
+    get_recommendations,
+    is_valid_movie_id,
+)
 import requests
+import traceback
 
 app = Flask(__name__)
 cors = CORS(app)
 
-user_movie_list = []
+user_movie_list = set()
+
+class InvalidRequestException(Exception):
+    pass
+
+def exception_handler(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except InvalidRequestException as e:
+            response = jsonify({'error': str(e)})
+            response.status_code = 400
+            return response
+        except Exception as e:
+            response = jsonify({'error': str(e)})
+            response.status_code = 500
+            return response
+    wrapper.__name__ = func.__name__ # Necessary to decorate more than one endpoint
+    return wrapper
 
 @app.route("/add_movie", methods=["POST"])
+@exception_handler
 def add_movie_to_list():
-    movie = request.form['selected_movie']
-    user_movie_list.append(movie)
+    movie_id = request.form.get('selected_movie', None)
+    if movie_id is None:
+        raise InvalidRequestException('Invalid request format')
+    if is_valid_movie_id(movie_id):
+        user_movie_list.add(movie_id)
+        resp = jsonify(success=True)
+        return resp
+    else:
+        raise InvalidRequestException('Invalid movie id')
+
+@app.route("/clear", methods=["POST"])
+@exception_handler
+def clear_movies():
+    user_movie_list.clear()
+    resp = jsonify(success=True)
+    return resp
 
 @app.route("/imdb", methods=["GET"])
+@exception_handler
 def get_imdb_results():
-    movie = request.args.get('user_movie', '')
+    movie_name = request.args.get('movie_name', '')
     URL = "https://imdb-api.com/en/API/AdvancedSearch/k_z9p2w7dy"
-    PARAMS = {'title':movie, 'title_type':'feature', 'release_date':',2021-01-01', 'languages':'en'} 
+    # Feel free to make any changes to the params
+    PARAMS = {'title':movie_name, 'release_date': '2000-01-01,', 'count': '5', 'languages':'en'}
     r = requests.get(url = URL, params = PARAMS)
-    data = r.json()
+    data = jsonify(r.json()['results'])
     return data
 
 @app.route("/database", methods=["GET"])
+@exception_handler
 def get_database_results():
-    rec_movies = name_recommendations.getRecommendations(user_movie_list)
+    rec_movies = get_recommendations(user_movie_list)
     return rec_movies
 
 @app.route('/')
