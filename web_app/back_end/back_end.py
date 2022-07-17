@@ -63,10 +63,12 @@ def clear_movies():
 @exception_handler
 def get_imdb_results():
     movie_name = request.args.get('movie_name', '')
-    URL = "https://imdb-api.com/en/API/AdvancedSearch/k_z9p2w7dy"
+    URL = "https://imdb-api.com/en/API/AdvancedSearch/k_fz1k341l"
     # Feel free to make any changes to the params
-    PARAMS = {'title':movie_name, 'release_date': '2000-01-01,', 'count': '5', 'languages':'en'}
+    PARAMS = {'title':movie_name, 'release_date': '2000-01-01,', 'languages':'en'}
     r = requests.get(url = URL, params = PARAMS)
+    print(r.json()['results'])
+    print(r.json())
     data = jsonify(r.json()['results'])
     return data
 
