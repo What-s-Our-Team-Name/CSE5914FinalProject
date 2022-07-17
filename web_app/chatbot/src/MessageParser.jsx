@@ -1,6 +1,4 @@
 import React from 'react';
-import { CHAT_STATE } from './constants/constants';
-
 
 const MessageParser = (props) => {
 

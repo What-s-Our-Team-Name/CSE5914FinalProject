@@ -1,11 +1,45 @@
 export const CHAT_STATE = {
-    WAITING_FOR_RECOMMENDATION_TYPE: 0,
-    WAITING_FOR_MOVIE_NAME: 1,
-    WAITING_FOR_SELECTION: 2,
-    FINISHED: 3
+    STARTING: 0,
+    WAITING_FOR_RECOMMENDATION_TYPE: 1,
+    WAITING_FOR_MOVIE_NAME: 2,
+    WAITING_FOR_SELECTION: 3,
+    WAITING_FOR_GENRE: 4,
+    FINISHED: 5,
   };
   
 export const RECOMMENDATION_TYPE = {
     MOVIE_NAME: 0,
     GENRE: 1,
-  };
+};
+
+export const GENRES = [
+    "animation",
+    "news",
+    "action",
+    "history",
+    "family",
+    "thriller",
+    "fantasy",
+    "horror",
+    "music",
+    "mystery",
+    "war",
+    "drama",
+    "talk-show",
+    "game-show",
+    "talk-show",
+    "musical",
+    "crime",
+    "romance",
+    "biography",
+    "comedy",
+    "reality-tv",
+    "horror",
+    "adventure",
+    "sci-fi",
+    "sport",
+    "adult",
+    "western",
+    "film-noir",
+    "sport",
+]
