@@ -1,0 +1,11 @@
+export const CHAT_STATE = {
+    WAITING_FOR_RECOMMENDATION_TYPE: 0,
+    WAITING_FOR_MOVIE_NAME: 1,
+    WAITING_FOR_SELECTION: 2,
+    FINISHED: 3
+  };
+  
+export const RECOMMENDATION_TYPE = {
+    MOVIE_NAME: 0,
+    GENRE: 1,
+  };
