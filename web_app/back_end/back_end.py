@@ -13,6 +13,7 @@ from name_recommendations import (
     get_recommendations,
     is_valid_movie_id,
 )
+from genre_recommendations import get_genre_recommendations
 import requests
 import traceback
 
@@ -67,8 +68,6 @@ def get_imdb_results():
     # Feel free to make any changes to the params
     PARAMS = {'title':movie_name, 'release_date': '2000-01-01,', 'languages':'en'}
     r = requests.get(url = URL, params = PARAMS)
-    print(r.json()['results'])
-    print(r.json())
     data = jsonify(r.json()['results'])
     return data
 
@@ -76,6 +75,13 @@ def get_imdb_results():
 @exception_handler
 def get_database_results():
     rec_movies = get_recommendations(user_movie_list)
+    return rec_movies
+
+@app.route("/genre", methods=["GET"])
+@exception_handler
+def get_genre_results():
+    genre = request.args.get('genre', '')
+    rec_movies = get_genre_recommendations(genre)
     return rec_movies
 
 @app.route('/')
