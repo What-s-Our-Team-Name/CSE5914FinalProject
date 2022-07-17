@@ -67,9 +67,9 @@ def get_imdb_results():
     URL = "https://imdb-api.com/en/API/AdvancedSearch/k_fz1k341l"
     # Feel free to make any changes to the params
     PARAMS = {'title':movie_name, 'release_date': '2000-01-01,', 'languages':'en'}
-    r = requests.get(url = URL, params = PARAMS)
-    data = jsonify(r.json()['results'])
-    return data
+    movies = requests.get(url = URL, params = PARAMS).json()['results']
+    movies = list(filter(lambda movie: is_valid_movie_id(movie['id']), movies))
+    return jsonify(movies)
 
 @app.route("/database", methods=["GET"])
 @exception_handler

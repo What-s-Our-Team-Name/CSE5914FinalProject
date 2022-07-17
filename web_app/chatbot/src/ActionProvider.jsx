@@ -19,11 +19,12 @@ const ActionProvider = ({
         if (chatState === CHAT_STATE.FINISHED) {
             return;
         }
-        if (message === 'e' || message === 'exit' || message === 'Exit') {
+        if (message === 'exit' || message === 'Exit') {
             setChatState(CHAT_STATE.FINISHED);
             return;
-        }
-        if (chatState === CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE) {
+        } else if (message === 'e') {
+            setChatState(CHAT_STATE.FINISHED_INPUT_MOVIE_NAME);
+        } else if (chatState === CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE) {
             handleRecommendationType(message);
         } else if (chatState === CHAT_STATE.WAITING_FOR_MOVIE_NAME) {
             handleMovieNameQuery(message);
@@ -41,9 +42,8 @@ const ActionProvider = ({
             }));
     }, [createChatBotMessage, setState]);
 
-    const handleStop = useCallback(async() => {
+    const handleQueryDatabase = useCallback(async() => {
         if (recommendationType === RECOMMENDATION_TYPE.GENRE) {
-            addMessage('Goodbye!');
             return;
         }
         try {
@@ -56,12 +56,17 @@ const ActionProvider = ({
                 addMessage(movies.join('\n'));
                 await clearMovies();
             }
-            addMessage('Goodbye!');
+            setChatState(CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE);
         } catch (error) {
             addMessage('Something went wrong. Please try again later.')
             console.log(error);
         }
     }, [addMessage, recommendationType]);
+
+    const handleExit = useCallback(() => {
+        addMessage('Goodbye!');
+        setChatState(CHAT_STATE.FINISHED);
+    }, [addMessage]);
 
     useEffect(() => {
         setChatState(CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE);
@@ -75,10 +80,13 @@ const ActionProvider = ({
         } else if (chatState === CHAT_STATE.WAITING_FOR_GENRE) {
             addMessage('Here is a list of all genres, please choose one from it:');
             addMessage(`${GENRES.join('\n')}`);
-        } else if (chatState === CHAT_STATE.FINISHED) {
-            handleStop();
+        } else if (chatState === CHAT_STATE.FINISHED_INPUT_MOVIE_NAME) {
+            handleQueryDatabase();
         }
-    }, [chatState, addMessage, handleStop]);
+        else if (chatState === CHAT_STATE.FINISHED) {
+            handleExit();
+        }
+    }, [chatState, addMessage, handleQueryDatabase, handleExit]);
 
     const handleRecommendationType = (message) => {
         message = message.toLowerCase();
