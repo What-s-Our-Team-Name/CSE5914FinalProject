@@ -6,6 +6,7 @@ titles = pd.read_csv('recom_title.csv')
 titleids = pd.read_csv('recom_titleid.csv')
 sim_records = pd.read_csv('sim_record.csv')
 
+titleids_set = set(titleids['title_id'].to_numpy().flatten())
 
 """
 DESCRIPTION 
@@ -38,6 +39,4 @@ def get_recommendations(user_movie_ids):
     return movie_dict
 
 def is_valid_movie_id(movie_id):
-    return movie_id in titleids['title_id'].to_numpy()
-
-
+    return movie_id in titleids_set
