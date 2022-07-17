@@ -23,3 +23,8 @@ export const queryDatabase = async () => {
   return response.data
 };
 
+export const queryGenre = async (genre) => {
+  const headers = {'params': {'genre': genre}}
+  const response = await axios.get(configData.SERVER_URL + configData.ROUTES.GENRE, headers); // send http request toward server
+  return response.data
+}

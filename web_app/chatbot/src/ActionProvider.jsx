@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { queryIMDB, addMovie, clearMovies, queryDatabase } from './utils/request_handler';
-import { CHAT_STATE, RECOMMENDATION_TYPE } from './constants/constants';
+import { queryIMDB, addMovie, clearMovies, queryDatabase, queryGenre } from './utils/request_handler';
+import { CHAT_STATE, RECOMMENDATION_TYPE, GENRES } from './constants/constants';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
@@ -12,14 +12,14 @@ const ActionProvider = ({
     children 
 }) => {
     const [recommendationType, setRecommendationType] = useState(RECOMMENDATION_TYPE.MOVIE_NAME);
-    const [chatState, setChatState] = useState(CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE);
+    const [chatState, setChatState] = useState(CHAT_STATE.STARTING);
     const [currentMovieList, setCurrentMovieList] = useState([]);
 
     const handleMessage = (message) => {
         if (chatState === CHAT_STATE.FINISHED) {
             return;
         }
-        if (message === 'e') {
+        if (message === 'e' || message === 'exit' || message === 'Exit') {
             setChatState(CHAT_STATE.FINISHED);
             return;
         }
@@ -29,6 +29,8 @@ const ActionProvider = ({
             handleMovieNameQuery(message);
         } else if (chatState === CHAT_STATE.WAITING_FOR_SELECTION) {
             handleMovieSelection(message);
+        } else if (chatState === CHAT_STATE.WAITING_FOR_GENRE) {
+            handleGenre(message);
         }
     };
 
@@ -39,22 +41,53 @@ const ActionProvider = ({
             }));
     }, [createChatBotMessage, setState]);
 
+    const handleStop = useCallback(async() => {
+        if (recommendationType === RECOMMENDATION_TYPE.GENRE) {
+            addMessage('Goodbye!');
+            return;
+        }
+        try {
+            const results = await queryDatabase();
+            const movies = Object.values(results);
+            if (movies.length === 0) {
+                addMessage('You have not put any movie yet.')
+            } else {
+                addMessage('Here is the Top 15 most similar movies:');
+                addMessage(movies.join('\n'));
+                await clearMovies();
+            }
+            addMessage('Goodbye!');
+        } catch (error) {
+            addMessage('Something went wrong. Please try again later.')
+            console.log(error);
+        }
+    }, [addMessage, recommendationType]);
+
     useEffect(() => {
-        if (chatState === CHAT_STATE.WAITING_FOR_MOVIE_NAME) {
+        setChatState(CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE);
+    }, []);
+
+    useEffect(() => {
+        if (chatState === CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE) {
+            addMessage(`Do you want recommendations based on Movie Names or Genres or Exit?`);
+        } else if (chatState === CHAT_STATE.WAITING_FOR_MOVIE_NAME) {
             addMessage('Enter the name of the movie or enter e to stop:');
+        } else if (chatState === CHAT_STATE.WAITING_FOR_GENRE) {
+            addMessage('Here is a list of all genres, please choose one from it:');
+            addMessage(`${GENRES.join('\n')}`);
         } else if (chatState === CHAT_STATE.FINISHED) {
             handleStop();
         }
-    }, [chatState, addMessage]);
+    }, [chatState, addMessage, handleStop]);
 
     const handleRecommendationType = (message) => {
         message = message.toLowerCase();
-        if (message === 'movie name') {
+        if (message === 'movie name' || message === 'movie names') {
             setRecommendationType(RECOMMENDATION_TYPE.MOVIE_NAME);
             setChatState(CHAT_STATE.WAITING_FOR_MOVIE_NAME);
-        } else if (message === 'genre') {
-            addMessage('Recommendation by genre is under construction. Chat is now closed.');
-            setChatState(CHAT_STATE.FINISHED);
+        } else if (message === 'genre' || message === 'genres') {
+            setRecommendationType(RECOMMENDATION_TYPE.GENRE);
+            setChatState(CHAT_STATE.WAITING_FOR_GENRE);
         } else {
             addMessage('Sorry I don\'t understand');
         }
@@ -88,7 +121,7 @@ const ActionProvider = ({
             addMessage(`Enter the selected movie (0-${movieList.length - 1}):`);
         } catch (error) {
             addMessage('Something went wrong. Please try again later.')
-            console.log('error');
+            console.log(error);
         }
     };
 
@@ -110,23 +143,23 @@ const ActionProvider = ({
         }
     };
 
-    const handleStop = async() => {
+    const handleGenre = async(genre) => {
+        if (!GENRES.includes(genre)) {
+            addMessage('Invalid genre, please try again.');
+            return;
+        }
         try {
-            const results = await queryDatabase();
+            const results = await queryGenre(genre);
             const movies = Object.values(results);
-            if (movies.length === 0) {
-                addMessage('You have not put any movie yet.')
-            } else {
-                addMessage('Here is the Top 15 most similar movies:');
-                addMessage(movies.join('\n'));
-                await clearMovies();
-            }
-            addMessage('The chat has been ended.');
+            addMessage(`Here is the Top ${movies.length} most popular movies in your genre:`);
+            addMessage(movies.join('\n'));
+            setChatState(CHAT_STATE.WAITING_FOR_RECOMMENDATION_TYPE);
+            setRecommendationType(RECOMMENDATION_TYPE.MOVIE_NAME);
         } catch (error) {
             addMessage('Something went wrong. Please try again later.')
-            console.log('error');
+            console.log(error);
         }
-    }
+    };
 
 
     return (
