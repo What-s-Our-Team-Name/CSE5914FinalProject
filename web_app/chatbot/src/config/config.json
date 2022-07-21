@@ -1,0 +1,11 @@
+{
+    "SERVER_URL": "http://164.92.78.243:8080",
+    "ROUTES": {
+        "ADD_MOVIE": "/add_movie",
+        "DATABASE": "/database",
+        "GENRE": "/genre",
+        "HOME": "/",
+        "IMDB": "/imdb",
+        "CLEAR": "/clear"
+    }
+  }
